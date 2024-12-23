@@ -10,7 +10,7 @@ services:
       - 80:80
     depends_on:
       - backend
-      - front
+      - frontend
     networks:
       - sangwon_networks
 
@@ -22,11 +22,12 @@ services:
 #    ports:
 #      - 80:80
 #    depends_on:
-#      - front
+#      - frontend
 #    networks:
 #      - sangwon_networks
 
   backend:
+    container_name: backend
     build:
       dockerfile: Dockerfile
       context: './backend'
@@ -55,18 +56,19 @@ services:
 #    ports:
 #      - 8000:8000
 #    depends_on:
-#      - front
+#      - frontend
 #      - sangwondb
 
-  front:
+  frontend:
+    container_name: frontend
     build:
       dockerfile: Dockerfile
-      context: "./front"
+      context: ./frontend
     depends_on:
       - backend
     volumes:
-      - /front/node_modules
-      - ./front:/front
+      - /frontend/node_modules
+      - ./frontend:/frontend
     ports:
       - 3000:3000
     networks:
