@@ -1,21 +1,21 @@
 version: '3'
 services:
-  nginx:
+  sangwon_nginx:
     build:
       context: nginx
-    container_name: nginx
+    container_name: sangwon_nginx
     restart: always
     tty: true
     ports:
       - 80:80
     depends_on:
-      - backend
-      - frontend
+      - sangwon_backend
+      - sangwon_frontend
     networks:
       - sangwon_networks
 
-  backend:
-    container_name: backend
+  sangwon_backend:
+    container_name: sangwon_backend
     build:
       dockerfile: Dockerfile
       context: './backend'
@@ -33,13 +33,13 @@ services:
     networks:
       - sangwon_networks
 
-  frontend:
-    container_name: frontend
+  sangwon_frontend:
+    container_name: sangwon_frontend
     build:
       dockerfile: Dockerfile
       context: ./frontend
     depends_on:
-      - backend
+      - sangwon_backend
     volumes:
       - /frontend/node_modules
       - ./frontend:/frontend
